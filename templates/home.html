@@ -1,0 +1,41 @@
+<html>
+	<head>
+		<title>Tutor Joes Flask Tutorial</title>
+		<link rel="stylesheet" href="{{url_for('static',filename='style.css')}}">
+	</head>
+	<body>
+		<h1>User Managment Using Python Flask & MySQL</h1>
+		
+		<h4>
+			{% with messages = get_flashed_messages() %}
+				{% if messages %}
+					{% for message in messages %}
+						{{ message }}
+					{% endfor %}
+				{% endif %}
+			{% endwith %}
+		</h4>
+		
+		<p><a href="{{url_for('addUsers')}}">Add Users</a></p>
+		<table>
+			<tr>
+				<th>ID</th>
+				<th>NAME</th>
+				<th>AGE</th>
+				<th>CITY</th>
+				<th>EDIT</th>
+				<th>DELETE</th>
+			</tr>
+			{% for data in datas %}
+				<tr>
+					<td>{{data.ID}}</td>
+					<td>{{data.NAME}}</td>
+					<td>{{data.AGE}}</td>
+					<td>{{data.CITY}}</td>
+					<td><a href="{{url_for('editUser',id=data.ID)}}">Edit</a></td>
+					<td><a onclick="return confirm('Are you sure to delete?');" href="{{url_for('deleteUser',id=data.ID)}}">Delete</a></td>
+				</tr>
+			{% endfor %}
+		</table>
+	</body>
+</html>
